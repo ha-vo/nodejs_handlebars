@@ -1,0 +1,9 @@
+@import 'variable';
+
+h1 {
+    color: $yellow-color;
+}
+
+.test {
+    background-color: green($color: #000000);
+}
