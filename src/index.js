@@ -3,6 +3,7 @@ import handlebar from 'express-handlebars'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import initWebRoute from './resources/routes/news.js'
+import initCourse from './resources/routes/course.js'
 import db from './config/db/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -23,6 +24,7 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 initWebRoute(app)
+initCourse(app)
 
 app.listen(port, () => console.log(`Web dang chay ở http://localhost:${port}`))
 
