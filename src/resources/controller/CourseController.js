@@ -1,5 +1,6 @@
 import model from '../models/course.js'
 import urlSlug from 'url-slug'
+import course from '../models/course.js'
 
 class CourseController {
     show(req, res, next) {
@@ -28,6 +29,30 @@ class CourseController {
                 res.redirect('/')
             })
             .catch(error => next(error))
+    }
+
+    getShowPage(req, res, next) {
+        model.find({})
+            .then(courses => {
+                courses = courses.map(course => course.toObject())
+                res.render('me', { courses })
+            })
+            .catch(next)
+    }
+
+    getEditPage(req, res, next) {
+        model.findById({ _id: req.params.id })
+            .then(course => {
+                course = course.toObject()
+                res.render('edit', { course })
+            })
+    }
+    update(req, res, next) {
+        model.updateOne({ _id: req.params.id }, req.body)
+            .then(() => {
+                res.redirect('/me/courses')
+            })
+            .catch(next)
     }
 }
 
