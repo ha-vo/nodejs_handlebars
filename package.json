@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "watch": "node-sass --watch src/resources/scss/ -o src/public/css/",
+    "watch": "node-sass --watch src/resources/scss -o src/public/css",
     "start": "nodemon --inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +17,8 @@
     "handlebars": "^4.7.7",
     "node-sass": "^8.0.0",
     "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "mongoose": "^7.0.0"
   }
 }
