@@ -15,9 +15,55 @@
             <td>{{this.description}}</td>
             <td>
                 <a href="/me/courses/{{this._id}}/edit"><button>Edit</button></a>
-                <a><button>Delete</button></a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm"
+                    data-bs-whatever="{{this._id}}">Delete</button>
             </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+
+<div class="modal fade" id="confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm_delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="" method="POST" id="sub_form"></form>
+
+<script>
+    addEventListener('DOMContentLoaded', (event) => {
+        const confirm = document.getElementById('confirm_delete')
+        const form = document.getElementById('sub_form')
+        var exampleModal = document.getElementById('confirm')
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-whatever')
+            confirm.onclick = () => {
+                console.log(recipient)
+                form.action = '/delete/' + recipient + '?_method=DELETE'
+                form.submit()
+            }
+        })
+
+    })
+
+</script>

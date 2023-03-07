@@ -7,6 +7,7 @@ const initCourse = (app) => {
     app.get('/me/courses', courseController.getShowPage)
     app.get('/me/courses/:id/edit', courseController.getEditPage)
     app.put('/me/courses/:id', courseController.update)
+    app.delete('/delete/:id', courseController.delete)
 }
 
 export default initCourse

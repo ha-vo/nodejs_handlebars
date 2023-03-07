@@ -54,6 +54,13 @@ class CourseController {
             })
             .catch(next)
     }
+    delete(req, res, next) {
+        model.deleteOne({ _id: req.params.id })
+            .then(course => {
+                res.redirect('/me/courses')
+            })
+            .catch(next)
+    }
 }
 
 export default new CourseController
