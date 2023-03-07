@@ -31,12 +31,13 @@ class CourseController {
     }
 
     getShowPage(req, res, next) {
-        model.find({})
-            .then(courses => {
+        Promise.all([model.find({}), model.countDocumentsWithDeleted({ deleted: true })])
+            .then(([courses, getNumberDelete]) => {
                 courses = courses.map(course => course.toObject())
-                res.render('me', { courses })
+                res.render('me', { courses, getNumberDelete })
             })
             .catch(next)
+
     }
 
     getEditPage(req, res, next) {
