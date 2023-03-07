@@ -23,7 +23,6 @@ class CourseController {
         req.body.image = `https://img.youtube.com/vi/${req.body.video}/sddefault.jpg`
         req.body.slug = slug
         const course = new model(req.body)
-        console.log(req.body)
         course.save()
             .then((course) => {
                 res.redirect('/')
@@ -55,10 +54,31 @@ class CourseController {
             .catch(next)
     }
     delete(req, res, next) {
-        model.deleteOne({ _id: req.params.id })
+        model.delete({ _id: req.params.id })
             .then(course => {
-                res.redirect('/me/courses')
+                res.redirect('back')
             })
+            .catch(next)
+    }
+    getTrashPage(req, res, next) {
+        model.findWithDeleted({ deleted: true })
+            .then(courses => {
+                courses = courses.map(course => course.toObject())
+                res.render("trash", { courses })
+            })
+            .catch(next)
+
+    }
+    restore(req, res, next) {
+        model.restore({ _id: req.params.id })
+            .then(
+                res.redirect('back')
+            )
+            .catch(next)
+    }
+    deleteComplete(req, res, next) {
+        model.deleteOne({ _id: req.params.id })
+            .then(res.redirect('back'))
             .catch(next)
     }
 }

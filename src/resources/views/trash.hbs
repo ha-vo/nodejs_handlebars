@@ -1,7 +1,6 @@
 <div class="m-3">
-    <h2 class="text-center">Khoá học của tôi</h2>
-    <a href="/delete/trash" class="text-color-black text-decoration-none"><i class="fa-solid fa-trash"></i> Khoá học đã
-        xoá</a>
+    <h2 class="text-center">Khoá học đã xoá</h2>
+    <a href="/me/courses" class="text-color-black text-decoration-none">Khoá học của tôi</a>
 </div>
 <table class="table">
     <thead>
@@ -19,15 +18,15 @@
             <td>{{this.name}}</td>
             <td>{{this.description}}</td>
             <td>
-                <a href="/me/courses/{{this._id}}/edit"><button class="btn btn-primary">Sửa</button></a>
+                <a href="/me/courses/{{this._id}}/restore"><button class="btn btn-primary">Khôi phục</button></a>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm"
-                    data-bs-whatever="{{this._id}}">Xoá</button>
+                    data-bs-whatever="{{this._id}}">Xoá hoàn toàn</button>
             </td>
         </tr>
         {{else}}
         <tr>
             <td colspan="5" class="text-center">
-                Bạn chưa tạo khoá học nào
+                Chưa có khoá học nào được xoá
             </td>
         </tr>
         {{/each}}
@@ -46,11 +45,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xoá
+                Hành động này sẽ không được khôi phục
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-danger" id="confirm_delete">Xoá</button>
+                <button type="button" class="btn btn-danger" id="confirm_delete">Chắn chắn xoá</button>
             </div>
         </div>
     </div>
@@ -61,6 +60,7 @@
 <script>
     addEventListener('DOMContentLoaded', (event) => {
         const confirm = document.getElementById('confirm_delete')
+        console.log("confirm")
         const form = document.getElementById('sub_form')
         var exampleModal = document.getElementById('confirm')
         exampleModal.addEventListener('show.bs.modal', function (event) {
@@ -70,7 +70,7 @@
             var recipient = button.getAttribute('data-bs-whatever')
             confirm.onclick = () => {
                 console.log(recipient)
-                form.action = '/delete/' + recipient + '?_method=DELETE'
+                form.action = '/delete/' + recipient + '/complete' + '?_method=DELETE'
                 form.submit()
             }
         })

@@ -1,11 +1,11 @@
-h1 {
-  color: yellow;
-}
-
 .test {
   background-color: 0;
 }
 
 .card-top-item {
   margin-top: 10px;
+}
+
+.text-color-black {
+  color: black;
 }

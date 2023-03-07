@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import delete_mongoose from "mongoose-delete"
 // import * as slug from 'mongoose-slug-generator'
 
 // mongoose.plugin(slug)
@@ -13,5 +14,7 @@ const Courses = new Schema({
     updatedAt: { type: Date, default: Date.now() },
     slug: { type: String }
 })
+
+Courses.plugin(delete_mongoose, { overrideMethods: 'all' })
 
 export default mongoose.model('Course', Courses)
